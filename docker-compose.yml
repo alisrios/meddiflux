@@ -1,22 +1,18 @@
 services:
   server:
     build: .
-    container_name: bia
+    container_name: meddiflux
     ports:
-      - 3001:8080
-    links:
-      - database
+      - 80:8080
     environment:
-      DB_USER: postgres
-      DB_PWD: postgres
       DB_HOST: database
       DB_PORT: 5432
       ## NAO PRECISA NO BOOTCAMP DAQUI PRA BAIXO ##
-      # DB_SECRET_NAME: 
-      # DB_REGION: 
+      #DB_SECRET_NAME: rds!db-4679cba6-8fbc-4b71-9a4a-219754ab13fb
+      #DB_REGION: us-east-1
       # AWS_ACCESS_KEY_ID: 
       # AWS_SECRET_ACCESS_KEY:
-      # DEBUG_SECRET: 
+      # DEBUG_SECRET: true 
       # IS_LOCAL: true 
     # healthcheck:
     #   test: ["CMD", "curl", "-f", "http://localhost:8080/api/versao"]
@@ -24,16 +20,4 @@ services:
     #   timeout: 5s
     #   retries: 3
     #   start_period: 5s     
-  database:
-    image: postgres:16.1
-    container_name: database
-    environment:
-      - "POSTGRES_USER=postgres"
-      - "POSTGRES_PASSWORD=postgres"
-      - "POSTGRES_DB=bia"
-    ports:
-      - 5433:5432
-    volumes:
-      - db:/var/lib/postgresql/data
-volumes:
-  db:
+ 
