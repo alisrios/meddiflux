@@ -5,11 +5,11 @@ services:
     ports:
       - 80:8080
     environment:
-      DB_HOST: database
+      DB_HOST: db-hom-meddiflux-instance-1.c9qkwqag6uxj.us-east-1.rds.amazonaws.com
       DB_PORT: 5432
       ## NAO PRECISA NO BOOTCAMP DAQUI PRA BAIXO ##
-      #DB_SECRET_NAME: rds!db-4679cba6-8fbc-4b71-9a4a-219754ab13fb
-      #DB_REGION: us-east-1
+      DB_SECRET_NAME: rds!cluster-42d51256-37a1-433c-b7b8-868f6e67c357
+      DB_REGION: us-east-1
       # AWS_ACCESS_KEY_ID: 
       # AWS_SECRET_ACCESS_KEY:
       # DEBUG_SECRET: true 
