@@ -1,5 +1,6 @@
 services:
   server:
+    env_file: .env
     build: .
     container_name: meddiflux
     ports:
