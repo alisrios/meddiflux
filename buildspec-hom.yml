@@ -34,6 +34,4 @@ phases:
       - echo "Build finalizado!"
 
 artifacts:
-  files:
-    - '**/*'
-
+  files: imagedefinitions.json
