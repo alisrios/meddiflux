@@ -12,11 +12,9 @@ RUN npm install --loglevel=error
 
 COPY . .
 
-# Definir variáveis de ambiente no Dockerfile, se necessário
 ARG REACT_APP_API_URL
 ARG SKIP_PREFLIGHT_CHECK
 
-# Passar as variáveis para o ambiente de execução durante o build
 ENV REACT_APP_API_URL=${REACT_APP_API_URL}
 ENV SKIP_PREFLIGHT_CHECK=${SKIP_PREFLIGHT_CHECK}
 
