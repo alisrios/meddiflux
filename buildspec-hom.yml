@@ -9,7 +9,7 @@ phases:
   build:
     commands:
       - echo Building the project...
-      # Definir o valor da API URL com base no ambiente (Homologação ou Produção)
+      # Definir o valor da API URL com base no ambiente (Homologação ou Produção teste)
       - if [ "$ENVIRONMENT" == "prod" ]; then export REACT_APP_API_URL=https://prod.projeto-aws.com.br; else export REACT_APP_API_URL=https://hom.projeto-aws.com.br; fi
       - echo "API URL is $REACT_APP_API_URL"
       - SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
