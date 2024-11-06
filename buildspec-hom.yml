@@ -3,35 +3,16 @@ version: 0.2
 env:
   variables:
     REACT_APP_API_URL: "https://hom.projeto-aws.com.br"
-    SKIP_PREFLIGHT_CHECK: "true"
 
 phases:
   install:
     commands:
-      - echo "Instalando Node.js 21 e npm..."
+      - echo Instalando Node 21 e npm...
       - curl -fsSL https://rpm.nodesource.com/setup_21.x | sudo bash -
       - sudo yum install -y nodejs
-
-  pre_build:
-    commands:
-      - echo "Verificando variáveis de ambiente antes de iniciar o build..."
-      - echo "REACT_APP_API_URL: $REACT_APP_API_URL"
-      - echo "SKIP_PREFLIGHT_CHECK: $SKIP_PREFLIGHT_CHECK"
-
   build:
     commands:
-      - echo "Instalando dependências do npm..."
       - npm install --loglevel=error
-      - echo "Iniciando o build com as variáveis de ambiente..."
-      - REACT_APP_API_URL=$REACT_APP_API_URL SKIP_PREFLIGHT_CHECK=$SKIP_PREFLIGHT_CHECK npm run build --prefix client
-      - echo "Build concluído com sucesso!"
-
-  post_build:
-    commands:
-      - echo "Executando os testes unitários..."
+      - REACT_APP_API_URL=$REACT_APP_API_URL SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
+      - echo Rodando testes unitarios...
       - npm test
-      - echo "Testes concluídos!"
-      - echo "Build finalizado!"
-
-artifacts:
-  files: imagedefinitions.json
