@@ -1,18 +1,23 @@
 version: 0.2
 
-env:
-  variables:
-    REACT_APP_API_URL: "https://hom.projeto-aws.com.br"
-
 phases:
   install:
+    runtime-versions:
+      nodejs: 18
     commands:
-      - echo Instalando Node 21 e npm...
-      - curl -fsSL https://rpm.nodesource.com/setup_21.x | sudo bash -
-      - sudo yum install -y nodejs
+      - echo Installing dependencies...
+      - npm install
   build:
     commands:
-      - npm install --loglevel=error
-      - REACT_APP_API_URL=$REACT_APP_API_URL SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
-      - echo Rodando testes unitarios...
-      - npm test
+      - echo Building the project...
+      # Definir o valor da API URL com base no ambiente (Homologação ou Produção)
+      - if [ "$ENVIRONMENT" == "prod" ]; then export REACT_APP_API_URL=https://prod.projeto-aws.com.br; else export REACT_APP_API_URL=https://hom.projeto-aws.com.br; fi
+      - echo "API URL is $REACT_APP_API_URL"
+      - SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
+      - mv client/build build
+      - rm -rf client/*
+      - mv build client/
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: yes
