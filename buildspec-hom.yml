@@ -9,7 +9,7 @@ phases:
   build:
     commands:
       - npm install --loglevel=error
-      - echo "Construindo para o ambiente: $ENVIRONMENT"
+      - echo Construindo para o ambiente $ENVIRONMENT
       - ./build.sh $ENVIRONMENT  # Passa a variável de ambiente
       #- REACT_APP_API_URL=https://hom-meddiflux.projeto-aws.com.br SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
       - echo Rodando testes unitarios...
