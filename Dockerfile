@@ -28,7 +28,7 @@ RUN if [ "$ENVIRONMENT" = "https://prod.projeto-aws.com.br" ]; then \
 RUN cat .env
 
 # Build da aplicação com as variáveis de ambiente
-RUN NODE_OPTIONS=--openssl-legacy-provider SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
+RUN NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
 
 RUN mv client/build build && rm -rf client/* && mv build client/
 
