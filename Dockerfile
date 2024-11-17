@@ -10,19 +10,24 @@ RUN npm install --loglevel=error
 
 COPY . .
 
+# Definição dos argumentos e variáveis de ambiente
 ARG ENVIRONMENT
 ENV REACT_APP_API_URL_PROD=https://prod.projeto-aws.com.br
 ENV REACT_APP_API_URL_HOM=https://hom.projeto-aws.com.br
 
-
+# Criar o arquivo .env antes do build
 RUN if [ "$ENVIRONMENT" = "https://prod.projeto-aws.com.br" ]; then \
     echo "Using prod API URL"; \
-    echo "REACT_APP_API_URL=${REACT_APP_API_URL_PROD}" >> .env; \
+    echo "REACT_APP_API_URL=${REACT_APP_API_URL_PROD}" > .env; \
   else \
     echo "Using hom API URL"; \
-    echo "REACT_APP_API_URL=${REACT_APP_API_URL_HOM}" >> .env; \
+    echo "REACT_APP_API_URL=${REACT_APP_API_URL_HOM}" > .env; \
   fi
 
+# Garante que o arquivo .env está disponível durante o build
+RUN cat .env
+
+# Build da aplicação com as variáveis de ambiente
 RUN NODE_OPTIONS=--openssl-legacy-provider SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
 
 RUN mv client/build build && rm -rf client/* && mv build client/
