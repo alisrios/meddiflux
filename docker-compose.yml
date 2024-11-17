@@ -8,6 +8,6 @@ services:
     container_name: meddiflux
     ports:
       - "80:8080"  # Mapear a porta do contêiner para a porta 80
-    environment:
-      - ENVIRONMENT=https://hom.projeto-aws.com.br  # Definindo o ambiente diretamente
-    restart: always  # Certifique-se de que o contêiner seja reiniciado automaticamente, se necessário
+    #environment:
+      #- ENVIRONMENT=https://hom.projeto-aws.com.br  # Definindo o ambiente diretamente
+    #restart: always  # Certifique-se de que o contêiner seja reiniciado automaticamente, se necessário
