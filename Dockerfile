@@ -1,25 +1,41 @@
 FROM public.ecr.aws/docker/library/node:21-slim
-RUN npm install -g npm@latest --loglevel=error
 
-#Instalando o curl
+# Install dependencies (update and install curl, remove cache)
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /usr/src/app
 
+# Copy package files
 COPY package*.json ./
 
+# Install project dependencies with minimal logging
 RUN npm install --loglevel=error
 
+# Copy remaining project files
 COPY . .
 
-RUN NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=http://34.239.240.133 SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
+# Define API URL environment variables
+ARG ENVIRONMENT
+ENV REACT_APP_API_URL_PROD=https://prod.projeto-aws.com.br
+ENV REACT_APP_API_URL_HOM=https://hom.projeto-aws.com.br
 
-RUN mv client/build build
+# Set API URL based on environment
+RUN if [ "$ENVIRONMENT" = "prod" ]; then \
+    echo "Using production API URL"; \
+    echo "REACT_APP_API_URL=${REACT_APP_API_URL_PROD}" >> .env; \
+  else \
+    echo "Using hom API URL"; \
+    echo "REACT_APP_API_URL=${REACT_APP_API_URL_HOM}" >> .env; \
+  fi
 
-RUN rm  -rf client/*
+# Build React app with dynamic API URL
+RUN NODE_OPTIONS=--openssl-legacy-provider SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
 
-RUN mv build client/
+# Clean and move build artifacts
+RUN mv client/build build && rm -rf client/* && mv build client/
 
+# Expose port for container
 EXPOSE 8080
 
+# Start the application in the container
 CMD [ "npm", "start" ]
