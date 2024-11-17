@@ -20,7 +20,7 @@ ENV REACT_APP_API_URL_PROD=https://prod.projeto-aws.com.br
 ENV REACT_APP_API_URL_HOM=https://hom.projeto-aws.com.br
 
 # Set API URL based on environment
-RUN if [ "$ENVIRONMENT" = "prod" ]; then \
+RUN if [ "$ENVIRONMENT" = "https://prod.projeto-aws.com.br" ]; then \
     echo "Using production API URL"; \
     echo "REACT_APP_API_URL=${REACT_APP_API_URL_PROD}" >> .env; \
   else \
