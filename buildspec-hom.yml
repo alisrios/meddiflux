@@ -3,24 +3,28 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Fazendo login no ECR...      
+      - sudo yum update -y
+      - echo "Fazendo login no ECR..."      
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 148761658767.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=148761658767.dkr.ecr.us-east-1.amazonaws.com/hom-meddiflux
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_TAG=${COMMIT_HASH:=latest}
+      - IMAGE_TAG=${COMMIT_HASH:-latest}  # Garantir que o fallback seja o 'latest' caso o COMMIT_HASH esteja vazio
+
   build:
     commands:
-      - echo Build iniciado em `date`
-      - echo Gerando imagem MEDDIFLUX...
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - echo "Build iniciado em $(date)"
+      - echo "Construindo para o ambiente $ENVIRONMENT"
+      - echo "Gerando imagem da MEDDIFLUX..."
+      - docker build --build-arg ENVIRONMENT=$ENVIRONMENT -t $REPOSITORY_URI:latest .  # Passando o argumento ENVIRONMENT
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG  # Tag da imagem com o commit
+
   post_build:
     commands:
-      - echo Build finalizado com sucesso em `date`
-      - echo Fazendo push da imagem para o ECR...
+      - echo "Build finalizado com sucesso em $(date)"
+      - echo "Fazendo push da imagem para o ECR..."
       - docker push $REPOSITORY_URI:latest
-      - docker push $REPOSITORY_URI:$IMAGE_TAG
-      - echo Gerando artefato da imagem para o ECS
-      - printf '[{"name":"bia","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - docker push $REPOSITORY_URI:$IMAGE_TAG  # Empurrando a imagem com a tag
+      - echo "Gerando artefato da imagem para o Beanstalk"
+      - printf '[{"name":"meddiflux","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json  # Gerando o artefato para Beanstalk
 artifacts:
   files: imagedefinitions.json
