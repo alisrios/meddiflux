@@ -14,6 +14,10 @@ phases:
     commands:
       - echo "Build iniciado em $(date)"
       - echo "Construindo para o ambiente $ENVIRONMENT"
+      - cd client
+      - npm install --loglevel=error
+      - NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build
+      - echo usando $ENVIRONMENT
       - echo "Gerando imagem da MEDDIFLUX..."
       - docker build --build-arg ENVIRONMENT=$ENVIRONMENT -t $REPOSITORY_URI:latest .  # Passando o argumento ENVIRONMENT
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG  # Tag da imagem com o commit
