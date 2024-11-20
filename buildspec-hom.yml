@@ -17,7 +17,7 @@ phases:
     commands:
       - echo "Build iniciado em $(date)"
       - echo "Construindo para o ambiente $ENVIRONMENT"
-      - cd client
+      #- cd client
       - npm install --loglevel=error
       - NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build
       - echo usando $ENVIRONMENT
