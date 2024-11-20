@@ -17,10 +17,10 @@ ENV REACT_APP_API_URL_HOM=https://hom.projeto-aws.com.br
 
 # Criar o arquivo .env antes do build
 RUN if [ "$ENVIRONMENT" = "https://prod.projeto-aws.com.br" ]; then \
-    echo "Using prod API URL"; \
+    echo "Usando prod API URL"; \
     echo "REACT_APP_API_URL=${REACT_APP_API_URL_PROD}" > .env; \
   else \
-    echo "Using hom API URL"; \
+    echo "Usando hom API URL"; \
     echo "REACT_APP_API_URL=${REACT_APP_API_URL_HOM}" > .env; \
   fi
 
