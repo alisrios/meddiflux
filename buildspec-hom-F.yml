@@ -1,6 +1,9 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      nodejs: 21
   pre_build:
     commands:
       - echo Fazendo login no ECR...      
@@ -12,7 +15,9 @@ phases:
     commands:
       - echo Build iniciado em `date`
       - echo Gerando imagem MEDDIFLUX...
-      - RUN NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
+      - cd client
+      - npm install --loglevel=error
+      - NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
       - echo usando $ENVIRONMENT
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
