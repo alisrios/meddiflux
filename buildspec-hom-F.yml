@@ -14,6 +14,7 @@ phases:
       - echo Gerando imagem MEDDIFLUX...
       - docker build -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - RUN NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
   post_build:
     commands:
       - echo Build finalizado com sucesso em `date`
