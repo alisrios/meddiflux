@@ -17,7 +17,9 @@ ENV REACT_APP_API_URL_HOM=https://hom.projeto-aws.com.br
 ENV DB_PORT=5432
 ENV DB_REGION=us-east-1
 ENV DB_SECRET_NAME_HOM="rds!cluster-42d51256-37a1-433c-b7b8-868f6e67c357"
+ENV DB_SECRET_NAME_PROD="rds!cluster-c1223aa6-813e-46d7-aa1d-98d4e8835763"
 ENV DB_HOST_HOM="db-hom-meddiflux.cluster-c9qkwqag6uxj.us-east-1.rds.amazonaws.com"
+ENV DB_HOST_PROD="db-prod-meddiflux.cluster-c9qkwqag6uxj.us-east-1.rds.amazonaws.com"
 
 # Criar o arquivo .env antes do build
 RUN if [ "$ENVIRONMENT" = "https://prod.projeto-aws.com.br" ]; then \
