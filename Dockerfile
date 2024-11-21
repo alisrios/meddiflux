@@ -39,7 +39,7 @@ RUN if [ "$ENVIRONMENT" = "https://prod.projeto-aws.com.br" ]; then \
   else \
     echo "Usando API URL de Homologação"; \
     echo "REACT_APP_API_URL=${REACT_APP_API_URL_HOM}" > .env; \
-    echo "DB_SECRET_NAME=${DB_SECRET_NAME_HOM}" >> .env; \
+    echo "DB_SECRET_NAME: ${DB_SECRET_NAME_HOM}" >> .env; \
     echo "DB_HOST=${DB_HOST_HOM}" >> .env; \
     echo "DB_REGION=${DB_REGION}" >> .env; \
     echo "DB_PORT=${DB_PORT}" >> .env; \
