@@ -12,34 +12,29 @@ COPY . .
 
 # Definição de argumentos (disponíveis apenas no build time)
 ARG ENVIRONMENT
-ARG DB_SECRET_NAME_HOM
-ARG DB_SECRET_NAME_PROD
-ARG DB_HOST_HOM
-ARG DB_HOST_PROD
+ARG DB_SECRET_NAME
+ARG DB_HOST
 
 # Definição de variáveis de ambiente (disponíveis no runtime)
 ENV REACT_APP_API_URL_PROD=https://prod.projeto-aws.com.br
 ENV REACT_APP_API_URL_HOM=https://hom.projeto-aws.com.br
+
 ENV DB_PORT=5432
 ENV DB_REGION=us-east-1
 
 # Transferindo valores de ARG para ENV
 ENV ENVIRONMENT=${ENVIRONMENT}
-ENV DB_SECRET_NAME_HOM=${DB_SECRET_NAME_HOM}
-ENV DB_SECRET_NAME_PROD=${DB_SECRET_NAME_PROD}
-ENV DB_HOST_HOM=${DB_HOST_HOM}
-ENV DB_HOST_PROD=${DB_HOST_PROD}
+ENV DB_SECRET_NAME_HOM=db-hom-meddiflux.cluster-c9qkwqag6uxj.us-east-1.rds.amazonaws.com
+ENV DB_HOST_HOM=rds!cluster-42d51256-37a1-433c-b7b8-868f6e67c357
 
 # Criar o arquivo .env antes do build
 RUN if [ "$ENVIRONMENT" = "https://prod.projeto-aws.com.br" ]; then \
     echo "Usando API URL de Produção"; \
     echo "REACT_APP_API_URL=${REACT_APP_API_URL_PROD}" > .env; \
-    echo "DB_SECRET_NAME=${DB_SECRET_NAME_PROD}" >> .env; \
-    echo "DB_HOST=${DB_HOST_PROD}" >> .env; \
   else \
     echo "Usando API URL de Homologação"; \
     echo "REACT_APP_API_URL=${REACT_APP_API_URL_HOM}" > .env; \
-    echo "DB_SECRET_NAME: ${DB_SECRET_NAME_HOM}" >> .env; \
+    echo "DB_SECRET_NAME=${DB_SECRET_NAME_HOM}" >> .env; \
     echo "DB_HOST=${DB_HOST_HOM}" >> .env; \
     echo "DB_REGION=${DB_REGION}" >> .env; \
     echo "DB_PORT=${DB_PORT}" >> .env; \
