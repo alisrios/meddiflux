@@ -1,5 +1,14 @@
 version: 0.2
 
+env:
+  variables:
+    ENVIRONMENT: "https://hom.projeto-aws.com.br"  # Ambiente de homologação
+    DB_SECRET_NAME_HOM: "rds!cluster-42d51256-37a1-433c-b7b8-868f6e67c357"
+    DB_HOST_HOM: "db-hom-meddiflux.cluster-c9qkwqag6uxj.us-east-1.rds.amazonaws.com"
+    DB_PORT: "5432"
+    DB_REGION: "us-east-1"
+    REACT_APP_API_URL: "https://hom.projeto-aws.com.br"
+
 phases:
   pre_build:
     commands:
@@ -9,6 +18,13 @@ phases:
       - REPOSITORY_URI=148761658767.dkr.ecr.us-east-1.amazonaws.com/hom-meddiflux
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:-latest}  # Garantir que o fallback seja o 'latest' caso o COMMIT_HASH esteja vazio
+      - echo "Criando o arquivo .env para ambiente Homologação..."
+      - echo "REACT_APP_API_URL=$REACT_APP_API_URL" > .env
+      - echo "DB_SECRET_NAME=$DB_SECRET_NAME_HOM" >> .env
+      - echo "DB_HOST=$DB_HOST_HOM" >> .env
+      - echo "DB_PORT=$DB_PORT" >> .env
+      - echo "DB_REGION=$DB_REGION" >> .env
+      - echo "Arquivo .env criado com sucesso para Homologação."
 
   build:
     commands:
@@ -26,5 +42,7 @@ phases:
       - docker push $REPOSITORY_URI:$IMAGE_TAG  # Empurrando a imagem com a tag
       - echo "Gerando artefato da imagem para o Beanstalk"
       - printf '[{"name":"meddiflux","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json  # Gerando o artefato para Beanstalk
+
 artifacts:
-  files: imagedefinitions.json
+  files:
+    - imagedefinitions.json
