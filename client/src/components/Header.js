@@ -20,11 +20,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 };
 
 Header.defaultProps = {
-<<<<<<< HEAD
   title: "MEDDIFLUX + DISGRAMA DO BANCO NOVO",
-=======
-  title: "MEDDIFLUX + BANCO",
->>>>>>> 1acd686 (alterando arquivos do repositorio para push corretamente tentativa1)
 };
 
 export default Header;
