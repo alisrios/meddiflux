@@ -12,7 +12,7 @@ phases:
   build:
     commands:
       - chmod +x gerar-compose.sh
-      - ./gerar-compose.yml
+      - ./gerar-compose.sh
       - echo "Build iniciado em $(date)"
       - echo "Construindo para o ambiente $ENVIRONMENT"
       - echo "Gerando imagem da MEDDIFLUX..."
