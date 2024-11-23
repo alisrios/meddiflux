@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
   server:
     env_file: .env  # Certifique-se de que o .env está corretamente configurado no seu projeto
