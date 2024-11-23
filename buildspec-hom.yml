@@ -25,7 +25,6 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG  # Empurrando a imagem com a tag
       - echo $ENVIRONMENT
-      - cat docker-compose-modelo.yml
       - cat docker-compose.yml  
       - echo "Gerando artefato da imagem para o Beanstalk"
 artifacts:
