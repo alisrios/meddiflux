@@ -20,7 +20,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 };
 
 Header.defaultProps = {
-  title: "MEDDIFLUX SEM VAI CURINTIAAAA",
+  title: "MEDDIFLUX CURINTIA 4ª DIVISÃO E DESCENDO",
 };
 
 export default Header;
