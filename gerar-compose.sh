@@ -18,6 +18,7 @@ fi
 cat > docker-compose.yml <<EOF
 services:
   server:
+    env_file: .env
     image: $IMAGE
     container_name: meddiflux
     ports:
