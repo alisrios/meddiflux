@@ -11,8 +11,8 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:-latest}  # Garantir que o fallback seja o 'latest' caso o COMMIT_HASH esteja vazio
   build:
     commands:
-      #- chmod +x gerar-compose-hom.sh
-      #- ./gerar-compose-hom.sh
+      - chmod +x gerar-compose-hom.sh
+      - ./gerar-compose-hom.sh
       - echo "Build iniciado em $(date)"
       - echo "Construindo para o ambiente ${image}"
       - echo "Gerando imagem da MEDDIFLUX..."
