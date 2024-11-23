@@ -15,7 +15,7 @@ phases:
       - echo "Build iniciado em $(date)"
       - echo "Construindo para o ambiente $ENVIRONMENT"
       - echo "Gerando imagem da MEDDIFLUX..."
-      - docker build --build-arg ENVIRONMENT=$ENVIRONMENT -t $REPOSITORY_URI:latest .  # Passando o argumento ENVIRONMENT
+      - docker build -f Dockerfile-hom -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG  # Tag da imagem com o commit
 
   post_build:
