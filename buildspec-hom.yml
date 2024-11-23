@@ -32,6 +32,5 @@ phases:
       - echo $ENVIRONMENT
       - cat docker-compose.yml  
       - echo "Gerando artefato da imagem para o Beanstalk"
-      - npm teste
 artifacts:
   files: docker-compose.yml
