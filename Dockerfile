@@ -10,6 +10,8 @@ RUN npm install --loglevel=error
 
 COPY . .
 
+RUN echo $ENVIRONMENT
+
 RUN NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
 
 RUN mv client/build build && rm -rf client/* && mv build client/
