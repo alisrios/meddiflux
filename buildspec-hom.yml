@@ -27,5 +27,7 @@ phases:
       - echo $ENVIRONMENT
       - cat docker-compose.yml  
       - echo "Gerando artefato da imagem para o Beanstalk"
+      - npm install
+      - NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
 artifacts:
   files: docker-compose.yml
