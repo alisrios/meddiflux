@@ -11,10 +11,10 @@ phases:
       - IMAGE_TAG=${COMMIT_HASH:-latest}  # Garantir que o fallback seja o 'latest' caso o COMMIT_HASH esteja vazio
   build:
     commands:
-      - chmod +x gerar-compose-prod.sh
-      - ./gerar-compose-prod.sh
+      #- chmod +x gerar-compose-prod.sh
+      #- ./gerar-compose-prod.sh
       - echo "Build iniciado em $(date)"
-      - echo "Construindo para o ambiente $ENVIRONMENT"
+      - echo "Construindo para o ambiente $image"
       - echo "Gerando imagem da MEDDIFLUX..."
       - docker build -f Dockerfile-prod -t $REPOSITORY_URI:latest .  # Passando o argumento ENVIRONMENT
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG  # Tag da imagem com o commit
