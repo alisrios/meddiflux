@@ -9,14 +9,13 @@ phases:
       - REPOSITORY_URI=148761658767.dkr.ecr.us-east-1.amazonaws.com/hom-meddiflux
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:-latest}  # Garantir que o fallback seja o 'latest' caso o COMMIT_HASH esteja vazio
+
   build:
     commands:
-      - chmod +x gerar-compose-hom.sh
-      - ./gerar-compose-hom.sh
       - echo "Build iniciado em $(date)"
       - echo "Construindo para o ambiente $ENVIRONMENT"
       - echo "Gerando imagem da MEDDIFLUX..."
-      - docker build -f Dockerfile-hom -t $REPOSITORY_URI:latest .  # Passando o argumento ENVIRONMENT
+      - docker build -f Dockerfile-hom -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG  # Tag da imagem com o commit
 
   post_build:
@@ -25,9 +24,8 @@ phases:
       - echo "Fazendo push da imagem para o ECR..."
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG  # Empurrando a imagem com a tag
+      - echo $ENVIRONMENT
+      - cat docker-compose.yml  
       - echo "Gerando artefato da imagem para o Beanstalk"
-      - printf '[{"name":"meddiflux","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json  # Gerando o artefato para Beanstalk
-
 artifacts:
-  files:
-    - imagedefinitions.json
+  files: docker-compose.yml
