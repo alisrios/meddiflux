@@ -3,7 +3,8 @@
 # dependencies
 /node_modules
 
-
+#ZIP
+*.zip
 
 #React node_modules
 /client/node_modules

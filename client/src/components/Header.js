@@ -10,7 +10,7 @@ const Header = ({ title, onAdd, showAdd }) => {
       {/* <h3>process.env.EMAIL_ALUNO</h3> */}
       {location.pathname === "/" && (
         <Button
-          color={showAdd ? "gray" : "purple"}
+          color={showAdd ? "Gray" : "purple"}
           text={showAdd ? "Fechar" : "Adicionar"}
           onClick={onAdd}
         />
@@ -20,7 +20,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 };
 
 Header.defaultProps = {
-  title: "MEDDIFLUX + BANCO",
+  title: "MEDDIFLUX + DISGRAMA DO BANCO NOVO 3",
 };
 
 export default Header;
