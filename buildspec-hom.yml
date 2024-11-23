@@ -31,6 +31,5 @@ phases:
       - npm install
       - NODE_OPTIONS=--openssl-legacy-provider REACT_APP_API_URL=$ENVIRONMENT SKIP_PREFLIGHT_CHECK=true npm run build --prefix client
       - echo "Gerando artefato da imagem para o Beanstalk"
-      - printf '[{"name":"meddiflux","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > docker-compose.yml  # Gerando o artefato para Beanstalk
 artifacts:
   files: docker-compose.yml
