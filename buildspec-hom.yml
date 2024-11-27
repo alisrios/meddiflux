@@ -6,7 +6,6 @@ phases:
       nodejs: 21
   pre_build:
     commands:
-      - sudo yum update -y
       - echo "Fazendo login no ECR..."      
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 148761658767.dkr.ecr.us-east-1.amazonaws.com
       - REPOSITORY_URI=148761658767.dkr.ecr.us-east-1.amazonaws.com/meddiflux
