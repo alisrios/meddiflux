@@ -15,7 +15,6 @@ phases:
   build:
     commands:
       - echo "Build iniciado em $(date)"
-      - echo "Construindo para o ambiente $ENVIRONMENT"
       - echo "Gerando imagem da MEDDIFLUX..."
       - docker build -f Dockerfile-hom -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG  # Tag da imagem com o commit
@@ -28,7 +27,6 @@ phases:
       - echo "Fazendo push da imagem para o ECR..."
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG  # Empurrando a imagem com a tag
-      - echo $ENVIRONMENT
       - cat docker-compose.yml  
       - echo "Gerando artefato da imagem para o Beanstalk"
 artifacts:
