@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer>
-      <p>Copyright Oregon EAD 2024</p>
-      <Link to="/about">Sobre o BIA</Link>
+      <p>Copyright Time 2 2024</p>
+      <Link to="/about">Sobre o Meddiflux</Link>
     </footer>
   );
 };
