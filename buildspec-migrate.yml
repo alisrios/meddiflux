@@ -17,7 +17,8 @@ phases:
       - echo "Iniciando containers..."
       - docker compose up -d
       - echo "Esperando 10 segundos para os containers inicializarem..."
-      - sleep 10  
+      - sleep 10 
+      - checkout 
       - echo "Iniciando as migrações do banco de dados..."
       - docker compose exec server bash -c 'npx sequelize db:migrate'
       - echo "Finalizado Migrates"
