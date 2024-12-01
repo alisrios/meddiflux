@@ -14,6 +14,9 @@ phases:
       - echo "Gerando imagem da MEDDIFLUX..."
       - docker build -f Dockerfile-hom -t $REPOSITORY_URI:latest .
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG  # Tag da imagem com o commit
+      - echo "Iniciando Migrates"
+      - npx sequelize
+      - echo "Finalizado Migrates"
   post_build:
     commands:
       - echo "Build finalizado com sucesso em $(date)"
