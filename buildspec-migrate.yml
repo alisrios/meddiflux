@@ -7,5 +7,5 @@ phases:
   build:
     commands:
       - echo "Iniciando Migrates"
-      - docker compose exec server bash -c 'npx sequelize db:migrate'
+      - docker compose exec server bash -c 'export $(cat /app/.env | xargs) && npx sequelize db:migrate'
       - echo "Finalizado Migrates"
