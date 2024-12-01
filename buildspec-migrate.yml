@@ -6,6 +6,8 @@ phases:
       nodejs: 21
   pre_build:
     commands:
+      - echo "Fazendo login no ECR..."      
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 148761658767.dkr.ecr.us-east-1.amazonaws.com
       - echo "Recriando arquivo .env"
       - echo "DB_HOST=$DB_HOST" >> .env
       - echo "DB_USER=$DB_PORT" >> .env
