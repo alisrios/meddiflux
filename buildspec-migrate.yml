@@ -4,8 +4,17 @@ phases:
   install:
     runtime-versions:
       nodejs: 21
+    pre_build:
+    commands:
+      - echo "Recriando arquivo .env"
+      - echo "DB_HOST=$DB_HOST" >> .env
+      - echo "DB_USER=$DB_USER" >> .env
+      - echo "DB_PASS=$DB_PASS" >> .env
+      - echo "DB_NAME=$DB_NAME" >> .env
+      - cat .env
   build:
     commands:
       - echo "Iniciando Migrates"
-      - docker compose exec server bash -c 'export $(cat /app/.env | xargs) && npx sequelize db:migrate'
+      - docker compose exec server bash -c 'npx sequelize db:migrate'
       - echo "Finalizado Migrates"
+      
