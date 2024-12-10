@@ -4,7 +4,6 @@ phases:
   install:
     runtime-versions:
       nodejs: 21
-
   build:
     commands:
       - echo "Iniciando Migrates..."
