@@ -7,6 +7,6 @@ phases:
   build:
     commands:
       - echo "Iniciando Migrates..."
-      - npm install && npx sequelize db:migrate
+      - npx sequelize db:migrate
       - echo "Finalizado Migrates"
       
