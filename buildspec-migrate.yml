@@ -4,18 +4,10 @@ phases:
   install:
     runtime-versions:
       nodejs: 21
-  pre_build:
-    commands:
-      - echo "Fazendo login no ECR..."      
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 148761658767.dkr.ecr.us-east-1.amazonaws.com
+
   build:
     commands:
-      - echo "Iniciando containers..."
-      - echo "Iniciando containers..."
-      - docker compose up -d  # Inicializa os containers
-      - echo "Verificando se o container está rodando..."
-      - docker compose ps  # Verifica o status dos containers
-      - echo "Iniciando as migrações do banco de dados..."
-      - docker compose exec server bash -c 'npx sequelize db:migrate'
+      - echo "Iniciando Migrates..."
+      - npx sequelize db:migrate'
       - echo "Finalizado Migrates"
       
