@@ -1,0 +1,12 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 21
+  build:
+    commands:
+      - echo "Iniciando Migrates..."
+      - npm install && npx sequelize db:migrate
+      - echo "Finalizado Migrates"
+      
