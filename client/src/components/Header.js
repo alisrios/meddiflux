@@ -20,7 +20,7 @@ const Header = ({ title, onAdd, showAdd }) => {
 };
 
 Header.defaultProps = {
-  title: "MEDDIFLUX Palmeiras não tem Mundial",
+  title: "MEDDIFLUX",
 };
 
 export default Header;
