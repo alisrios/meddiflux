@@ -20,7 +20,8 @@ phases:
       - echo "Fazendo push da imagem para o ECR..."
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG  # Empurrando a imagem com a tag
-      - cat docker-compose.yml  
+      - sed "s/meddiflux:latest/meddiflux:$IMAGE_TAG/g" docker-compose-modelo.yml > docker-compose.yml
       - echo "Gerando artefato da imagem para o Beanstalk"
+      - cat docker-compose.yml 
 artifacts:
   files: docker-compose.yml
